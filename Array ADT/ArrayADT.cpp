@@ -148,6 +148,40 @@ int LinearSearch(struct Array *arr1, int key)
 //
 //
 
+int BinarySearch(struct Array arr1, int key)
+{
+
+    int l = 0;
+    int h = arr1.length - 1;
+
+    while (h >= 1)
+    {
+
+        int mid = (l + h) / 2;
+
+        if (key == arr1.A[mid])
+            return mid;
+
+        else if (key < arr1.A[mid])
+            h = mid - 1;
+
+        else
+            l = mid + 1;
+    }
+
+    return -1; //If value not found in array
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 int main()
 {
 
@@ -193,7 +227,13 @@ int main()
     {
 
         int choice;
-        printf("\n\nWhich operation you want to do ??: \n\n 1. Append \n 2. Insert in index \n 3. Delete Value from index  \n 4.Search element by value in array \n\n Enter the number:- ");
+        printf( 
+            "\n\nWhich operation you want to do ??:"
+            "\n\n 1. Append \n 2. Insert in index \n "
+            "3. Delete Value from index "
+            "\n 4. Search element by value in array "
+            "\n 5. Display Array"
+            "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
         switch (choice)
@@ -229,8 +269,16 @@ int main()
             break;
 
         case 4:
-            //Wraped the case with the parentheses as error occurred
+        {
+            int searchChoice;
+            printf("\n\n Through which method you want to perform search operation \n 1. Linear Search \n 2. Binary Sarch \n\n Enter the number :-");
+            scanf("%d", &searchChoice);
+
+            switch (searchChoice)
             {
+            case 1:
+            {
+                //Wraped the case with the parentheses as error occurred
                 int searchKey;
                 printf("\nEnter the value you want to search: ");
                 scanf("%d", &searchKey);
@@ -246,6 +294,34 @@ int main()
                 }
                 break;
             }
+
+            case 2:
+            {
+                int searchKey;
+                printf("\nEnter the value you want to search: ");
+                scanf("%d", &searchKey);
+
+                int foundIndex = BinarySearch(arr, searchKey);
+                if (foundIndex == -1)
+                {
+                    printf("\nThe value %d in not present in array \n", foundIndex);
+                }
+                else
+                {
+                    printf(" \n The value %d is present in index no. %d \n", searchKey, foundIndex);
+                }
+                break;
+            }
+
+            default:
+                break;
+            }
+        }
+        break;
+
+        case 5:
+            Display(arr);
+            break;
 
         default:
             printf("No number present");
