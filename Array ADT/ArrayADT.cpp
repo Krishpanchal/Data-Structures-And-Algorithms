@@ -182,6 +182,116 @@ int BinarySearch(struct Array arr1, int key)
 //
 //
 
+void get(struct Array arr1, int index)
+{
+    if (index >= 0 && index < arr1.length)
+    {
+        printf("The element at index %d is %d", index, arr1.A[index]);
+    }
+    else
+    {
+        printf("Invalid index");
+    }
+}
+
+//
+//
+//
+//
+
+void set(struct Array *arr1, int index, int value)
+{
+    if (index >= 0 && index < arr1->length)
+    {
+        arr1->A[index] = value;
+        Display(*arr1);
+    }
+    else
+    {
+        printf("Invalid index");
+    }
+}
+
+//
+//
+//
+//
+//
+
+void Max(struct Array arr1)
+{
+
+    int max = arr1.A[0];
+    int i;
+    for (i = 1; i < arr1.length; i++)
+    {
+        if (arr1.A[i] > max)
+        {
+            max = arr1.A[i];
+        }
+    }
+
+    printf("The max element of all the elements is %d", max);
+}
+
+//
+//
+//
+//
+//
+
+void Min(struct Array arr1)
+{
+
+    int min = arr1.A[0];
+    int i;
+    for (i = 1; i < arr1.length; i++)
+    {
+        if (arr1.A[i] < min)
+        {
+            min = arr1.A[i];
+        }
+    }
+
+    printf("The max element of all the elements is %d", min);
+}
+
+//
+//
+//
+//
+//
+
+int sum(struct Array arr1)
+{
+
+    int sum = 0;
+    int i;
+    for (i = 0; i < arr1.length; i++)
+    {
+        sum += arr1.A[i];
+    }
+
+    return sum;
+}
+
+//
+//
+//
+//
+//
+
+float avg(struct Array arr1)
+{
+    return (float)sum(arr1) / arr1.length;
+}
+
+//
+//
+//
+//
+//
+
 int main()
 {
 
@@ -227,12 +337,19 @@ int main()
     {
 
         int choice;
-        printf( 
+        printf(
             "\n\nWhich operation you want to do ??:"
-            "\n\n 1. Append \n 2. Insert in index \n "
-            "3. Delete Value from index "
+            "\n\n 1. Append "
+            "'\n 2. Insert in index"
+            "\n 3. Delete Value from index "
             "\n 4. Search element by value in array "
-            "\n 5. Display Array"
+            "\n 5. Display Array "
+            "\n 6. Get an element through the index"
+            "\n 7. Set a value in any index"
+            "\n 8. Get the maximum value in the array"
+            "\n 9. Get the minimum value in the array"
+            "\n 10. Get the sum of all the elements in the array"
+            "\n 11. Get the average of the elements in the array"
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
@@ -323,6 +440,50 @@ int main()
             Display(arr);
             break;
 
+        case 6:
+            int getIndex;
+            printf("Enter the valid index for getting the value in it :");
+            scanf("%d", &getIndex);
+
+            get(arr, getIndex);
+
+            break;
+
+        case 7:
+            int setIndex, setValue;
+            printf("Enter the valid index for setting the value :");
+            scanf("%d", &setIndex);
+            printf("Enter the value to be inserted in the index :");
+            scanf("%d", &setValue);
+
+            set(&arr, setIndex, setValue);
+
+            break;
+
+        case 8:
+            Max(arr);
+
+            break;
+
+        case 9:
+            Min(arr);
+
+            break;
+
+        case 10:
+        {
+            int allSum = sum(arr);
+            printf("The sum of all the elements in the array is %d ", allSum);
+            break;
+        }
+
+        case 11:
+        {
+            int average = avg(arr);
+            printf("The sum of all the elements in the array is %d ", average);
+            break;
+        }
+
         default:
             printf("No number present");
             break;
@@ -334,3 +495,5 @@ int main()
 
     return 0;
 }
+
+// printf("The sum of all the elements is %d " , sum);
