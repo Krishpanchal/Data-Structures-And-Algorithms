@@ -292,6 +292,37 @@ float avg(struct Array arr1)
 //
 //
 
+// Revesing using auxillary array
+// void Reverse(struct Array *arr1)
+// {
+
+//     int *B;
+//     int i, j;
+
+//     B = (int *)malloc(arr1->length * sizeof(int));
+
+//     for(i = arr1->length - 1, j = 0; i >= 0; i-- ,j++)
+//         B[j] = arr1->A[i];
+
+//     for (i = 0; i < arr1->length; i++)
+//         arr1->A[i] = B[i];
+
+//     Display(*arr1);
+// }
+
+//Reversing from start to end wothout auxillary array
+
+void Reverse(struct Array *arr1)
+{
+    int i, j;
+    for (i = 0, j = arr1->length - 1; i < j; i++, j--)
+    {
+        swap(&arr1->A[i], &arr1->A[j]);
+    }
+
+    Display(*arr1);
+}
+
 int main()
 {
 
@@ -350,6 +381,7 @@ int main()
             "\n 9. Get the minimum value in the array"
             "\n 10. Get the sum of all the elements in the array"
             "\n 11. Get the average of the elements in the array"
+            "\n 12. Reverse the array"
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
@@ -483,6 +515,9 @@ int main()
             printf("The sum of all the elements in the array is %d ", average);
             break;
         }
+
+        case 12:
+            Reverse(&arr);
 
         default:
             printf("No number present");
