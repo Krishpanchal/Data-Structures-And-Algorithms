@@ -323,6 +323,93 @@ void Reverse(struct Array *arr1)
     Display(*arr1);
 }
 
+//
+//
+//
+//
+//
+//
+
+bool isSorted(struct Array arr1)
+{
+
+    int i = 0;
+
+    for (i = 0; i < arr1.length; i++)
+    {
+
+        if (arr1.A[i] > arr1.A[i + 1])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+//
+//
+//
+//
+//
+//
+
+void InsertInSorted(struct Array *arr1, int value)
+{
+    int i = arr1->length - 1;
+
+    if (i >= 0 && arr1->length < arr1->size)
+    {
+
+        while (arr1->A[i] > value)
+        {
+
+            arr1->A[i + 1] = arr1->A[i];
+            i--;
+        }
+
+        arr1->A[i + 1] = value;
+        arr1->length++;
+
+        Display(*arr1);
+    }
+    else
+    {
+        printf("No space");
+    }
+}
+
+//
+//
+//
+//
+//
+//
+
+//Placing all -ve elemnts on left side
+
+void ReArrange(struct Array *arr1)
+{
+    int i = 0;
+    int j = arr1->length - 1;
+
+    while (i < j)
+    {
+        while (arr1->A[i] < 0)
+        {
+            i++;
+        }
+        while (arr1->A[j] > 0)
+        {
+            j--;
+        }
+
+        if (i < j)
+            swap(&arr1->A[i], &arr1->A[j]);
+    }
+
+    Display(*arr1);
+}
+
 int main()
 {
 
@@ -381,7 +468,13 @@ int main()
             "\n 9. Get the minimum value in the array"
             "\n 10. Get the sum of all the elements in the array"
             "\n 11. Get the average of the elements in the array"
-            "\n 12. Reverse the array"
+
+            "\n\n **************** Some more Operations **************"
+
+            "\n\n 12. Reverse the array"
+            "\n 13. Inserting value in a sorted array (only adds in a sorted array)"
+            "\n 14. Check if the array is sorted"
+            "\n 15. ReArrange the array based on -ve values on left & +ve values on right"
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
@@ -518,6 +611,27 @@ int main()
 
         case 12:
             Reverse(&arr);
+
+        case 13:
+            if (isSorted(arr))
+            {
+                int valueToInsert;
+                printf("Enter the value you want to insert in a sorted array: ");
+                scanf("%d", &valueToInsert);
+
+                InsertInSorted(&arr, valueToInsert);
+            }
+
+        case 14:
+        {
+            bool sortedArray = isSorted(arr);
+            (sortedArray) ? printf("The given array with %d elements is sorted", arr.length) : printf("The given array with %d elements is not sorted", arr.length);
+        }
+        break;
+
+        case 15:
+            ReArrange(&arr);
+            break;
 
         default:
             printf("No number present");
