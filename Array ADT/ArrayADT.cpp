@@ -417,20 +417,17 @@ void ReArrange(struct Array *arr1)
 //
 //
 
-struct Array* Merge(struct Array arr1, struct Array arr2)
+struct Array *Merge(struct Array arr1, struct Array arr2)
 {
 
     int i, j, k;
     i = j = k = 0;
-
-    
 
     struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
 
     //Merge part
     while (i < arr1.length && j < arr2.length)
     {
-
         if (arr1.A[i] < arr2.A[j])
             arr3->A[k++] = arr1.A[i++]; //first assign and then increment
         else
@@ -445,6 +442,120 @@ struct Array* Merge(struct Array arr1, struct Array arr2)
 
     arr3->size = arr1.size + arr2.size;
     arr3->length = arr1.length + arr2.length;
+
+    return arr3;
+}
+
+//
+//
+//
+//
+//
+//
+
+struct Array *Union(struct Array arr1, struct Array arr2)
+{
+
+    int i, j, k;
+    i = j = k = 0;
+
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    //Merge part
+    while (i < arr1.length && j < arr2.length)
+    {
+        if (arr1.A[i] < arr2.A[j])
+            arr3->A[k++] = arr1.A[i++]; //first assign and then increment
+        else if (arr2.A[j] < arr1.A[i])
+            arr3->A[k++] = arr2.A[j++];
+        else
+        {
+            arr3->A[k++] = arr1.A[i++];
+            j++;
+        }
+    }
+
+    for (; i < arr1.length; i++)
+        arr3->A[k++] = arr1.A[i];
+
+    for (; j < arr2.length; j++)
+        arr3->A[k++] = arr2.A[j];
+
+    arr3->size = arr1.size + arr2.size;
+    arr3->length = k;
+
+    return arr3;
+}
+
+//
+//
+//
+//
+//
+//
+
+struct Array *Intersect(struct Array arr1, struct Array arr2)
+{
+
+    int i, j, k;
+    i = j = k = 0;
+
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    //Merge part
+    while (i < arr1.length && j < arr2.length)
+    {
+        if (arr1.A[i] < arr2.A[j])
+            i++;
+        else if (arr2.A[j] < arr1.A[i])
+            j++;
+        else if (arr1.A[i] == arr2.A[j])
+        {
+            arr3->A[k++] = arr1.A[i++];
+            j++;
+        }
+    }
+
+    arr3->size = arr1.size + arr2.size;
+    arr3->length = k;
+
+    return arr3;
+}
+
+//
+//
+//
+//
+//
+//
+
+struct Array *Difference(struct Array arr1, struct Array arr2)
+{
+
+    int i, j, k;
+    i = j = k = 0;
+
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    //Merge part
+    while (i < arr1.length && j < arr2.length)
+    {
+        if (arr1.A[i] < arr2.A[j])
+            arr3->A[k++] = arr1.A[i++]; //first assign and then increment
+        else if (arr2.A[j] < arr1.A[i])
+            j++;
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+
+    for (; i < arr1.length; i++)
+        arr3->A[k++] = arr1.A[i];
+
+    arr3->size = arr1.size + arr2.size;
+    arr3->length = k;
 
     return arr3;
 }
@@ -522,6 +633,12 @@ int main()
             "\n 14. Check if the array is sorted"
             "\n 15. ReArrange the array based on -ve values on left & +ve values on right"
             "\n 16. Merge two arrays (both arrays should be sorted)"
+
+            "\n\n **************** Set Operations **************"
+            "\n 17. Union of two arrays(sorted)"
+            "\n 18. Intersection of two arrays(sorted)"
+            "\n 19. Difference of two arrays(sorted)"
+
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
@@ -719,6 +836,135 @@ int main()
             Display(arr2);
 
             arr3 = Merge(arr, arr2);
+            Display(*arr3);
+        }
+        break;
+
+        case 17:
+        {
+            struct Array arr2;
+            struct Array *arr3;
+
+            int n, i;
+            //input the size
+            printf("Enter the size of the second Array :- ");
+            scanf("%d", &arr2.size);
+
+            // creating the array in heap
+            arr2.A = (int *)malloc(arr2.size * sizeof(int));
+
+            //input the length
+            printf("Enter the number of elements for %d sized second array :- ", arr2.size);
+            scanf("%d", &n);
+
+            //check if the length > size
+            if (n > arr2.size)
+            {
+                printf("The number of elements should not be greater than the size of array");
+                return 0;
+            }
+
+            arr2.length = n;
+
+            //input the elements of the array till the length
+            printf("Enter %d elements in the second array:\n", n);
+
+            for (i = 0; i < n; i++)
+            {
+                printf("\nData in location %d :- ", i);
+                scanf("%d", &arr2.A[i]);
+            }
+
+            //displaying the elements
+            Display(arr2);
+
+            arr3 = Union(arr, arr2);
+            Display(*arr3);
+        }
+        break;
+
+        case 18:
+        {
+            struct Array arr2;
+            struct Array *arr3;
+
+            int n, i;
+            //input the size
+            printf("Enter the size of the second Array :- ");
+            scanf("%d", &arr2.size);
+
+            // creating the array in heap
+            arr2.A = (int *)malloc(arr2.size * sizeof(int));
+
+            //input the length
+            printf("Enter the number of elements for %d sized second array :- ", arr2.size);
+            scanf("%d", &n);
+
+            //check if the length > size
+            if (n > arr2.size)
+            {
+                printf("The number of elements should not be greater than the size of array");
+                return 0;
+            }
+
+            arr2.length = n;
+
+            //input the elements of the array till the length
+            printf("Enter %d elements in the second array:\n", n);
+
+            for (i = 0; i < n; i++)
+            {
+                printf("\nData in location %d :- ", i);
+                scanf("%d", &arr2.A[i]);
+            }
+
+            //displaying the elements
+            Display(arr2);
+
+            arr3 = Intersect(arr, arr2);
+            Display(*arr3);
+        }
+        break;
+
+        case 19:
+        {
+            struct Array arr2;
+            struct Array *arr3;
+
+            int n, i;
+            //input the size
+            printf("Enter the size of the second Array :- ");
+            scanf("%d", &arr2.size);
+
+            // creating the array in heap
+            arr2.A = (int *)malloc(arr2.size * sizeof(int));
+
+            //input the length
+            printf("Enter the number of elements for %d sized second array :- ", arr2.size);
+            scanf("%d", &n);
+
+            //check if the length > size
+            if (n > arr2.size)
+            {
+                printf("The number of elements should not be greater than the size of array");
+                return 0;
+            }
+
+            arr2.length = n;
+
+            //input the elements of the array till the length
+            printf("Enter %d elements in the second array:\n", n);
+
+            for (i = 0; i < n; i++)
+            {
+                printf("\nData in location %d :- ", i);
+                scanf("%d", &arr2.A[i]);
+            }
+
+            //displaying the elements
+            Display(arr2);
+
+            arr3 = Difference(arr, arr2);
             Display(*arr3);
         }
         break;
