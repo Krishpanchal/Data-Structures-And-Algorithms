@@ -567,6 +567,64 @@ struct Array *Difference(struct Array arr1, struct Array arr2)
 //
 //
 
+void LeftShift(struct Array *arr)
+{
+
+    int i = 0;
+    for (i = 0; i < arr->length - 1; i++)
+        arr->A[i] = arr->A[i + 1];
+    arr->A[arr->length - 1] = 0;
+
+    Display(*arr);
+}
+
+//
+//
+//
+//
+//
+//
+//
+
+void RightShift(struct Array *arr)
+{
+    int i;
+    for (i = arr->length - 1; i > 0; i--)
+        arr->A[i] = arr->A[i - 1];
+    arr->A[0] = 0;
+
+    Display(*arr);
+}
+
+//
+//
+//
+//
+//
+//
+
+void LeftRotate(struct Array *arr)
+{
+    int i, firstVal = arr->A[0];
+
+    for (i = 0; i < arr->length - 1; i++)
+        arr->A[i] = arr->A[i + 1];
+    arr->A[arr->length - 1] = firstVal;
+
+    Display(*arr);
+}
+
+void RightRotate(struct Array *arr)
+{
+    int i, lastVal = arr->A[arr->length - 1];
+
+    for (i = arr->length - 1; i > 0; i--)
+        arr->A[i] = arr->A[i - 1];
+    arr->A[0] = lastVal;
+
+    Display(*arr);
+}
+
 int main()
 {
 
@@ -638,6 +696,14 @@ int main()
             "\n 17. Union of two arrays(sorted)"
             "\n 18. Intersection of two arrays(sorted)"
             "\n 19. Difference of two arrays(sorted)"
+
+            "\n\n **************** Shift Operations ************"
+            "\n 20. Left shift"
+            "\n 21. Right Shift"
+
+            "\n\n **************** Rotatte Operations ************"
+            "\n 22. Left rotate"
+            "\n 23. Right rotate"
 
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
@@ -969,6 +1035,22 @@ int main()
         }
         break;
 
+        case 20:
+            LeftShift(&arr);
+            break;
+
+        case 21:
+            RightShift(&arr);
+            break;
+
+        case 22:
+            LeftRotate(&arr);
+            break;
+
+        case 23:
+            RightRotate(&arr);
+            break;
+
         default:
             printf("No number present");
             break;
@@ -980,5 +1062,3 @@ int main()
 
     return 0;
 }
-
-// printf("The sum of all the elements is %d " , sum);
