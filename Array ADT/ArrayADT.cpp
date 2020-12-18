@@ -218,7 +218,7 @@ void set(struct Array *arr1, int index, int value)
 //
 //
 
-void Max(struct Array arr1)
+int Max(struct Array arr1)
 {
 
     int max = arr1.A[0];
@@ -231,7 +231,7 @@ void Max(struct Array arr1)
         }
     }
 
-    printf("The max element of all the elements is %d", max);
+    return max;
 }
 
 //
@@ -240,7 +240,7 @@ void Max(struct Array arr1)
 //
 //
 
-void Min(struct Array arr1)
+int Min(struct Array arr1)
 {
 
     int min = arr1.A[0];
@@ -253,7 +253,7 @@ void Min(struct Array arr1)
         }
     }
 
-    printf("The max element of all the elements is %d", min);
+    return min;
 }
 
 //
@@ -603,6 +603,62 @@ void RightShift(struct Array *arr)
 //
 //
 
+void FindMissing(struct Array arr)
+{
+
+    int initialDiff = arr.A[0];
+    int currentDiff;
+    for (int i = 0; i < arr.length; i++)
+    {
+        currentDiff = arr.A[i] - i;
+
+        if (currentDiff != initialDiff)
+        {
+            while (initialDiff < currentDiff)
+            {
+                printf("Missing ");
+                printf("%d \n", initialDiff + i);
+                initialDiff++;
+            }
+        }
+    }
+}
+
+//
+//
+//
+//
+//
+//
+
+void FindMessingUnSorted(struct Array arr)
+{
+    //get lowest
+    int low = Min(arr);
+    //get highest
+    int high = Max(arr);
+
+    //create array and assign all 0
+    int SecondArray[high] = {0};
+
+    for (int i = 0; i < arr.length; i++)
+    {
+        SecondArray[arr.A[i]]++;
+    }
+    for (int i = low; i < high; i++)
+    {
+        if (SecondArray[i] == 0)
+            printf("Missing %d \n", i);
+    }
+}
+
+//
+//
+//
+//
+//
+//
+
 void LeftRotate(struct Array *arr)
 {
     int i, firstVal = arr->A[0];
@@ -705,6 +761,9 @@ int main()
             "\n 22. Left rotate"
             "\n 23. Right rotate"
 
+            "\n\n **************** Missing Operations ************"
+            "\n 24. Finding Missing element in a sorted array"
+            "\n 25. Finding Missing elements in an unsorted array"
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
@@ -816,14 +875,18 @@ int main()
             break;
 
         case 8:
-            Max(arr);
-
-            break;
+        {
+            int max = Max(arr);
+            printf("The max element of all the elements is %d", max);
+        }
+        break;
 
         case 9:
-            Min(arr);
-
-            break;
+        {
+            int min = Min(arr);
+            printf("The min element of all the elements is %d", min);
+        }
+        break;
 
         case 10:
         {
@@ -1049,6 +1112,14 @@ int main()
 
         case 23:
             RightRotate(&arr);
+            break;
+
+        case 24:
+            FindMissing(arr);
+            break;
+
+        case 25:
+            FindMessingUnSorted(arr);
             break;
 
         default:
