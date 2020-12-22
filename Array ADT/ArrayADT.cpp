@@ -670,6 +670,13 @@ void LeftRotate(struct Array *arr)
     Display(*arr);
 }
 
+//
+//
+//
+//
+//
+//
+
 void RightRotate(struct Array *arr)
 {
     int i, lastVal = arr->A[arr->length - 1];
@@ -680,6 +687,65 @@ void RightRotate(struct Array *arr)
 
     Display(*arr);
 }
+
+//
+//
+//
+//
+//
+//
+
+void FindingDupliSorted(struct Array arr)
+{
+
+    int i, j;
+
+    for (i = 0; i < arr.length - 1; i++)
+    {
+
+        if (arr.A[i] == arr.A[i + 1])
+        {
+            j = i + 1;
+            while (arr.A[j] == arr.A[i])
+                j++;
+            printf("%d = %d times \n", arr.A[i], j - i);
+            i = j - 1;
+        }
+    }
+}
+
+//
+//
+//
+//
+//
+//
+
+void FindingDupliUnsorted(struct Array arr)
+{
+
+    int max = Max(arr);
+
+    int H[max + 1] = {0};
+
+    for (int i = 0; i < arr.length; i++)
+    {
+        H[arr.A[i]]++;
+    }
+
+    for (int i = 0; i < max + 1; i++)
+    {
+        if (H[i] > 1)
+            printf("%d = %d times \n", i, H[i]);
+    }
+}
+
+//
+//
+//
+//
+//
+//
 
 int main()
 {
@@ -764,6 +830,10 @@ int main()
             "\n\n **************** Missing Operations ************"
             "\n 24. Finding Missing element in a sorted array"
             "\n 25. Finding Missing elements in an unsorted array"
+
+            "\n\n **************** Finding Duplicates ************"
+            "\n 26. Finding duplicates in a sorted array"
+            "\n 27. Finding duplicates in a unsorted array"
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
@@ -1120,6 +1190,14 @@ int main()
 
         case 25:
             FindMessingUnSorted(arr);
+            break;
+
+        case 26:
+            FindingDupliSorted(arr);
+            break;
+
+        case 27:
+            FindingDupliUnsorted(arr);
             break;
 
         default:
