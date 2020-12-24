@@ -659,6 +659,53 @@ void FindMessingUnSorted(struct Array arr)
 //
 //
 
+void FindingPairSorted(struct Array arr, int k)
+{
+
+    for (int i = 0; i < arr.length - 1; i++)
+    {
+
+        for (int j = i + 1; j < arr.length; j++)
+        {
+
+            if (arr.A[i] + arr.A[j] == k)
+                printf("%d + %d = %d \n", arr.A[i], arr.A[j], k);
+        }
+    }
+}
+
+//
+//
+//
+//
+//
+//
+
+void FindingPairUnsorted(struct Array arr, int k)
+{
+
+    int i = 0, j = arr.length - 1;
+
+    while (i < j)
+    {
+
+        if (arr.A[i] + arr.A[j] == k)
+        {
+            printf("%d + %d = %d \n", arr.A[i], arr.A[j], k);
+            i++;
+            j--;
+        }
+        else if (arr.A[i] + arr.A[j] < k)
+        {
+            i++;
+        }
+        else
+        {
+            j--;
+        }
+    }
+}
+
 void LeftRotate(struct Array *arr)
 {
     int i, firstVal = arr->A[0];
@@ -834,6 +881,11 @@ int main()
             "\n\n **************** Finding Duplicates ************"
             "\n 26. Finding duplicates in a sorted array"
             "\n 27. Finding duplicates in a unsorted array"
+
+            "\n\n **************** Finding Pairs with Sum of K ************"
+            "\n 28. Finding in unsorted array"
+            "\n 29. Finding in sorted array"
+
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
 
@@ -1199,6 +1251,24 @@ int main()
         case 27:
             FindingDupliUnsorted(arr);
             break;
+
+        case 28:
+        {
+            int k;
+            printf("\nEnter the sum value: ");
+            scanf("%d", &k);
+            FindingPairSorted(arr, k);
+        }
+        break;
+
+        case 29:
+        {
+            int k;
+            printf("\nEnter the sum value: ");
+            scanf("%d", &k);
+            FindingPairUnsorted(arr, k);
+        }
+        break;
 
         default:
             printf("No number present");
