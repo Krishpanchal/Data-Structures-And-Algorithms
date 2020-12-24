@@ -794,6 +794,31 @@ void FindingDupliUnsorted(struct Array arr)
 //
 //
 
+void FindMinMax(struct Array arr)
+{
+
+    int min = arr.A[0];
+    int max = arr.A[0];
+
+    for (int i = 0; i < arr.length; i++)
+    {
+
+        if (arr.A[i] < min)
+            min = arr.A[i];
+        else if (arr.A[i] > max)
+            max = arr.A[i];
+    }
+
+    printf("Max = %d \n Min = %d", max, min);
+}
+
+//
+//
+//
+//
+//
+//
+
 int main()
 {
 
@@ -885,6 +910,8 @@ int main()
             "\n\n **************** Finding Pairs with Sum of K ************"
             "\n 28. Finding in unsorted array"
             "\n 29. Finding in sorted array"
+
+            "\n\n 30. Finding Max & Min element in array in a single scan"
 
             "\n\n Enter the number:- ");
         scanf("%d", &choice);
@@ -1269,6 +1296,10 @@ int main()
             FindingPairUnsorted(arr, k);
         }
         break;
+
+        case 30:
+            FindMinMax(arr);
+            break;
 
         default:
             printf("No number present");
